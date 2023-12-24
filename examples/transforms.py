@@ -101,7 +101,7 @@ def initialize_bert_transform(config):
 
     def transform(text):
         tokens = tokenizer(
-            text,
+            str(text),
             padding="max_length",
             truncation=True,
             max_length=config.max_token_length,
