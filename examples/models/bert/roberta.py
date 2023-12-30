@@ -1,7 +1,7 @@
 from transformers import RobertaForSequenceClassification 
 
 
-class RobertaClassifier(DebertaV2ForSequenceClassification):
+class RobertaClassifier(RobertaForSequenceClassification):
     def __init__(self, config):
         super().__init__(config)
         self.d_out = config.num_labels
