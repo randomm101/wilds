@@ -9,10 +9,8 @@ class RobertaClassifier(DebertaV2ForSequenceClassification):
     def __call__(self, x):
         input_ids = x[:, :, 0]
         attention_mask = x[:, :, 1]
-        token_type_ids = x[:, :, 2]
         outputs = super().__call__(
             input_ids=input_ids,
             attention_mask=attention_mask,
-            token_type_ids=token_type_ids
-        )[0] 
+        )[0]
         return outputs

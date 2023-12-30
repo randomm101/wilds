@@ -5,7 +5,7 @@ import numpy as np
 import torch
 import torchvision.transforms as transforms
 import torchvision.transforms.functional as TF
-from transformers import BertTokenizerFast, DistilBertTokenizerFast
+from transformers import BertTokenizerFast, DistilBertTokenizerFast, DebertaTokenizerFast, RobertaTokenizerFast
 
 from data_augmentation.randaugment import FIX_MATCH_AUGMENTATION_POOL, RandAugment
 
@@ -91,10 +91,16 @@ def initialize_bert_transform(config):
             return BertTokenizerFast.from_pretrained(model)
         elif model == "distilbert-base-uncased":
             return DistilBertTokenizerFast.from_pretrained(model)
+        elif model == "roberta-base":
+            return RobertaTokenizerFast.from_pretrained(model)
+        elif model == "microsoft/deberta-v3-base":
+            pass
+        elif model == "microsoft/deberta-base":
+            return DebertaTokenizerFast.from_pretrained(model)
         else:
             raise ValueError(f"Model: {model} not recognized.")
 
-    assert "bert" in config.model
+    # assert "bert" in config.model
     assert config.max_token_length is not None
 
     tokenizer = get_bert_tokenizer(config.model)
@@ -107,7 +113,7 @@ def initialize_bert_transform(config):
             max_length=config.max_token_length,
             return_tensors="pt",
         )
-        if config.model == "bert-base-uncased":
+        if config.model in ["bert-base-uncased", "microsoft/deberta-v3-base", "microsoft/deberta-base"]:
             x = torch.stack(
                 (
                     tokens["input_ids"],
@@ -116,7 +122,7 @@ def initialize_bert_transform(config):
                 ),
                 dim=2,
             )
-        elif config.model == "distilbert-base-uncased":
+        elif config.model in ["distilbert-base-uncased", "roberta-base"]:
             x = torch.stack((tokens["input_ids"], tokens["attention_mask"]), dim=2)
         x = torch.squeeze(x, dim=0)  # First shape dim is always 1
         return x
