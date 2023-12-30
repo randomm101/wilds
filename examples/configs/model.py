@@ -65,5 +65,20 @@ model_defaults = {
             'min_size' :1024,
             'max_size' :1024
         }
-    }
+    },
+    'microsoft/deberta-v3-base': {
+        'optimizer': 'AdamW',
+        'max_grad_norm': 1.0,
+        'scheduler': 'linear_schedule_with_warmup',
+    },
+    'roberta-base': {
+        'optimizer': 'AdamW',
+        'max_grad_norm': 1.0,
+        'scheduler': 'linear_schedule_with_warmup',
+    },
+    'microsoft/deberta-base': {
+        'optimizer': 'AdamW',
+        'max_grad_norm': 1.0,
+        'scheduler': 'linear_schedule_with_warmup',
+    },
 }

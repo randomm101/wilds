@@ -47,7 +47,8 @@ additional_transforms = ['randaugment', 'weak']
 models = ['resnet18_ms', 'resnet18', 'resnet34', 'resnet50', 'resnet101', 'wideresnet50',
          'densenet121', 'bert-base-uncased', 'distilbert-base-uncased',
          'gin-virtual', 'logistic_regression', 'code-gpt-py',
-         'fasterrcnn', 'unet-seq']
+         'fasterrcnn', 'unet-seq',
+         'microsoft/deberta-v3-base', 'roberta-base', 'microsoft/deberta-base']
 
 # See optimizer.py
 optimizers = ['SGD', 'Adam', 'AdamW']

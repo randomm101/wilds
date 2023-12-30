@@ -161,6 +161,8 @@ def initialize_model(config, d_out, is_featurizer=False):
 def initialize_bert_based_model(config, d_out, featurize=False):
     from models.bert.bert import BertClassifier, BertFeaturizer
     from models.bert.distilbert import DistilBertClassifier, DistilBertFeaturizer
+    from models.bert.deberta import DebertaClassifier, DebertaV2Classifier
+    from models.bert.roberta import RobertaClassifier
 
     if config.pretrained_model_path:
         print(f'Initialized model with pretrained weights from {config.pretrained_model_path}')
@@ -182,6 +184,33 @@ def initialize_bert_based_model(config, d_out, featurize=False):
                 config.model,
                 num_labels=d_out,
                 **config.model_kwargs)
+    elif config.model == 'microsoft/deberta-v3-base':
+        if featurize:
+            pass
+        else:
+            model = DebertaV2Classifier.from_pretrained(
+                config.model,
+                num_labels=d_out,
+                **config.model_kwargs
+            )
+    elif config.model == 'roberta-base':
+        if featurize:
+            pass
+        else:
+            model = RobertaClassifier.from_pretrained(
+                config.model,
+                num_labels=d_out,
+                **config.model_kwargs
+            )
+    elif config.model == 'microsoft/deberta-base':
+        if featurize:
+            pass
+        else:
+            model = DebertaClassifier.from_pretrained(
+                config.model,
+                num_labels=d_out,
+                **config.model_kwargs
+            )
     else:
         raise ValueError(f'Model: {config.model} not recognized.')
     return model
