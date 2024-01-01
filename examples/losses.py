@@ -1,3 +1,4 @@
+import torch
 import torch.nn as nn
 from wilds.common.metrics.loss import ElementwiseLoss, Loss, MultiTaskLoss
 from wilds.common.metrics.all_metrics import MSE
