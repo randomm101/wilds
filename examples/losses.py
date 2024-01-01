@@ -19,7 +19,7 @@ class FocalLoss(nn.Module):
         p = np.clip(p, 1e-15, 1 - 1e-15)
         return np.where(y, p, 1 - p)
 
-    def forward(self, x):
+    def forward(self, y_pred, y_true):
         at = self.at(y_true)
         pt = self.pt(y_true, y_pred)
         return -at * (1 - pt) ** self.gamma * np.log(pt)
