@@ -21,6 +21,7 @@ class FocalLoss(nn.Module):
         return torch.where(y.bool(), p, 1 - p)
 
     def forward(self, y_pred, y_true):
+        y_pred = torch.argmax(y_pred, dim=1)
         at = self.at(y_true)
         pt = self.pt(y_true, y_pred)
         return -at * (1 - pt) ** self.gamma * torch.log(pt)
