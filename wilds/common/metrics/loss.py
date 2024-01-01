@@ -1,4 +1,5 @@
 import torch
+from torch import nn
 from wilds.common.utils import avg_over_groups, maximum
 from wilds.common.metrics.metric import ElementwiseMetric, Metric, MultiTaskMetric
 
