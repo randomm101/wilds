@@ -9,7 +9,7 @@ def initialize_loss(loss, config):
         return ElementwiseLoss(loss_fn=nn.CrossEntropyLoss(reduction='none', ignore_index=-100))
 
     if loss == "focal_cross_entropy":
-        return ElementwiseLoss(loss_fn=FocalLoss(gamma=2.0, alpha=None, reduction="none"))
+        return ElementwiseLoss(loss_fn=FocalLoss(gamma=2.0, alpha=None))
 
     elif loss == 'lm_cross_entropy':
         return MultiTaskLoss(loss_fn=nn.CrossEntropyLoss(reduction='none', ignore_index=-100))
