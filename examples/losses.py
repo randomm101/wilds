@@ -1,5 +1,6 @@
 import torch
 import torch.nn as nn
+import numpy as np
 from wilds.common.metrics.loss import ElementwiseLoss, Loss, MultiTaskLoss
 from wilds.common.metrics.all_metrics import MSE
 from utils import cross_entropy_with_logits_loss
@@ -14,11 +15,11 @@ class FocalLoss(nn.Module):
     def at(self, y):
         if self.alpha is None:
             return torch.ones_like(y)
-        return torch.where(y, self.alpha, 1 - self.alpha)
+        return np.where(y, self.alpha, 1 - self.alpha)
 
     def pt(self, y, p):
         p = torch.clip(p, 1e-15, 1 - 1e-15)
-        return torch.where(y, p, 1 - p)
+        return np.where(y, p, 1 - p)
 
     def forward(self, y_pred, y_true):
         at = self.at(y_true)
