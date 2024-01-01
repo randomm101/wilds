@@ -12,17 +12,17 @@ class FocalLoss(nn.Module):
 
     def at(self, y):
         if self.alpha is None:
-            return np.ones_like(y)
-        return np.where(y, self.alpha, 1 - self.alpha)
+            return torch.ones_like(y)
+        return torch.where(y, self.alpha, 1 - self.alpha)
 
     def pt(self, y, p):
-        p = np.clip(p, 1e-15, 1 - 1e-15)
-        return np.where(y, p, 1 - p)
+        p = torch.clip(p, 1e-15, 1 - 1e-15)
+        return torch.where(y, p, 1 - p)
 
     def forward(self, y_pred, y_true):
         at = self.at(y_true)
         pt = self.pt(y_true, y_pred)
-        return -at * (1 - pt) ** self.gamma * np.log(pt)
+        return -at * (1 - pt) ** self.gamma * torch.log(pt)
 
 
 def initialize_loss(loss, config):
